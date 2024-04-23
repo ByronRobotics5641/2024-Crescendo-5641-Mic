@@ -16,7 +16,7 @@ public class IndexSubsystem extends SubsystemBase {
   CANSparkMax index2 = new CANSparkMax(19, MotorType.kBrushless);
 
 
-  //Hello from Collin's github!
+  
 
   
   public void indexDriver (double speed)
