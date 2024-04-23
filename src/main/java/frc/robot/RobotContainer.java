@@ -144,7 +144,8 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(0)*RevSwerveConfig.maxSpeed, //sidetoside
                 () -> -driver.getRawAxis(4)*RevSwerveConfig.maxSpeed, //rotation
                 () -> false,
-                () -> driver.getRawButton(6)
+                () -> driver.getRawButton(6),
+                () -> driver.getRawButton(5)
             )
         );
 

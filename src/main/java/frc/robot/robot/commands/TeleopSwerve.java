@@ -19,8 +19,9 @@ public class TeleopSwerve extends Command {
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
     private BooleanSupplier speedToggle;
+    private BooleanSupplier demoModeToggle;
 
-    public TeleopSwerve(RevSwerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier speedToggle) {
+    public TeleopSwerve(RevSwerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier speedToggle, BooleanSupplier demoModeToggle) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -29,6 +30,7 @@ public class TeleopSwerve extends Command {
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
         this.speedToggle = speedToggle;
+        this.demoModeToggle = demoModeToggle;
     }
 
 
@@ -40,6 +42,15 @@ public class TeleopSwerve extends Command {
         double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.stickDeadband);
 
+
+        boolean demoMode = demoModeToggle.getAsBoolean();
+        if (!demoMode) {
+            RevSwerveConfig.maxSpeed = 0.1;
+            System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
+        } 
+
+
+        else{
         boolean speedToggleVal = speedToggle.getAsBoolean();
         if (speedToggleVal) {
             RevSwerveConfig.maxSpeed = RevSwerveConfig.lowSpeed;
@@ -48,6 +59,11 @@ public class TeleopSwerve extends Command {
             RevSwerveConfig.maxSpeed = 1;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         }
+        }
+
+        
+        
+        
 
         /* Drive */
         s_Swerve.drive(
