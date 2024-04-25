@@ -5,10 +5,12 @@
 package frc.robot.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.robot.subsystems.swerve.rev.RevSwerveConfig;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -69,6 +71,19 @@ public class IntakeSubsystem extends SubsystemBase {
   
 
   public void angleUp() {
+    SparkPIDController controller1 = angle1.getPIDController();
+        controller1.setP(-.1,0);
+        controller1.setI(0,0);
+        controller1.setD(0,0);
+        controller1.setOutputRange(-0.35, 0.35);
+        controller1.setReference(0, CANSparkMax.ControlType.kPosition);
+
+    SparkPIDController controller2 = angle2.getPIDController();
+        controller2.setP(.1,0);
+        controller2.setI(0,0);
+        controller2.setD(0,0);
+        controller2.setOutputRange(-0.35, 0.35);
+        controller2.setReference(0, CANSparkMax.ControlType.kPosition);
 
   }
   public void angleDown() {
