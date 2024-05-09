@@ -145,7 +145,7 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(4)*RevSwerveConfig.maxSpeed, //rotation
                 () -> false,
                 () -> driver.getRawButton(6),
-                () -> driver.getRawButton(5)
+                () -> true
             )
         );
 
@@ -193,6 +193,7 @@ public class RobotContainer {
         m_manipController.x().whileTrue(m_startIntake).onFalse(m_stopIntake);
         m_manipController.a().whileTrue(m_reverseIntake).onFalse(m_stopIntake);
         m_manipController.b().whileTrue(m_slowIndex).onFalse(m_stopIndex);
+        
     }
 
 

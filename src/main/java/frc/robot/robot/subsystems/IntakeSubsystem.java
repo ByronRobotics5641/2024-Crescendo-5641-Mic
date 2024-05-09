@@ -72,22 +72,34 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void angleUp() {
     SparkPIDController controller1 = angle1.getPIDController();
-        controller1.setP(-.1,0);
-        controller1.setI(0,0);
-        controller1.setD(0,0);
-        controller1.setOutputRange(-0.35, 0.35);
-        controller1.setReference(0, CANSparkMax.ControlType.kPosition);
+        controller1.setP(1.4,0);
+        controller1.setI(0.04,0);
+        controller1.setD(0.1,0);
+        controller1.setOutputRange(-0.75, 0.75);
+        controller1.setReference(180, CANSparkMax.ControlType.kPosition);
 
     SparkPIDController controller2 = angle2.getPIDController();
-        controller2.setP(.1,0);
-        controller2.setI(0,0);
-        controller2.setD(0,0);
-        controller2.setOutputRange(-0.35, 0.35);
-        controller2.setReference(0, CANSparkMax.ControlType.kPosition);
+        controller2.setP(-1.4,0);
+        controller2.setI(0.04,0);
+        controller2.setD(0.1,0);
+        controller2.setOutputRange(-0.75, 0.75);
+        controller2.setReference(-180, CANSparkMax.ControlType.kPosition);
 
   }
   public void angleDown() {
+    SparkPIDController controller1 = angle1.getPIDController();
+        controller1.setP(-.7,0);
+        controller1.setI(0.0,0);
+        controller1.setD(0.0,0);
+        controller1.setOutputRange(-0.3, 0.3);
+        controller1.setReference(.5, CANSparkMax.ControlType.kPosition);
 
+    SparkPIDController controller2 = angle2.getPIDController();
+        controller2.setP(.7,0);
+        controller2.setI(0.0,0);
+        controller2.setD(0.0,0);
+        controller2.setOutputRange(-0.3, 0.3);
+        controller2.setReference(15, CANSparkMax.ControlType.kPosition);
   }
   public void angleAmp() {
     
