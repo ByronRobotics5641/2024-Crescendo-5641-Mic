@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.robot.subsystems.swerve.rev.RevSwerveConfig;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */

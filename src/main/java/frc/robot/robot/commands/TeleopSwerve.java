@@ -62,7 +62,7 @@ public class TeleopSwerve extends Command {
             RevSwerveConfig.maxSpeed = RevSwerveConfig.lowSpeed;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         } else {
-            RevSwerveConfig.maxSpeed = 1;
+            RevSwerveConfig.maxSpeed = .3;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         }
         }
