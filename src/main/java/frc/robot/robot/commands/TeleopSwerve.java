@@ -20,8 +20,17 @@ public class TeleopSwerve extends Command {
     private BooleanSupplier robotCentricSup;
     private BooleanSupplier speedToggle;
     private BooleanSupplier demoModeToggle;
+    private BooleanSupplier speedStopValue;
 
-    public TeleopSwerve(RevSwerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, BooleanSupplier speedToggle, BooleanSupplier demoModeToggle) {
+    public TeleopSwerve(
+    RevSwerve s_Swerve,
+     DoubleSupplier translationSup, 
+     DoubleSupplier strafeSup, 
+     DoubleSupplier rotationSup, 
+     BooleanSupplier robotCentricSup, 
+     BooleanSupplier speedToggle, 
+     BooleanSupplier demoModeToggle, 
+     BooleanSupplier speedStopValue) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
 
@@ -31,6 +40,7 @@ public class TeleopSwerve extends Command {
         this.robotCentricSup = robotCentricSup;
         this.speedToggle = speedToggle;
         this.demoModeToggle = demoModeToggle;
+        this.speedStopValue = speedStopValue;
     }
 
 
@@ -44,13 +54,15 @@ public class TeleopSwerve extends Command {
 
 
         boolean demoMode = demoModeToggle.getAsBoolean();
-        if (!demoMode) {
+        if (demoMode) {
             boolean speedToggleVal = speedToggle.getAsBoolean();
         if (speedToggleVal) {
-            RevSwerveConfig.maxSpeed = 0.15;
+            RevSwerveConfig.maxSpeed = 0.12;
+            RevSwerveConfig.maxAngularVelocity = 1.5;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         } else {
-            RevSwerveConfig.maxSpeed = .2;
+            RevSwerveConfig.maxSpeed = .13;
+            RevSwerveConfig.maxAngularVelocity = 1.5;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         }
         } 
@@ -60,23 +72,44 @@ public class TeleopSwerve extends Command {
         boolean speedToggleVal = speedToggle.getAsBoolean();
         if (speedToggleVal) {
             RevSwerveConfig.maxSpeed = RevSwerveConfig.lowSpeed;
+            RevSwerveConfig.maxAngularVelocity = 9;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         } else {
-            RevSwerveConfig.maxSpeed = .3;
+            RevSwerveConfig.maxSpeed = .6;
+            RevSwerveConfig.maxAngularVelocity = 9;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         }
         }
 
+        boolean speedStop = speedStopValue.getAsBoolean();
+        /*if(speedStop){
+            RevSwerveConfig.maxSpeed = 0;
+            RevSwerveConfig.maxAngularVelocity = 0;
+            boolean speedToggleVal = speedToggle.getAsBoolean();
+            if(speedToggleVal) {
+                RevSwerveConfig.maxSpeed = 0;
+            }
+            else{
+        }
+        else{
+            
+        }*/
         
         
         
 
         /* Drive */
-        s_Swerve.drive(
+        
+        if(speedStop) {
+            s_Swerve.drive(new Translation2d(0, 0), 0, false, true);
+        }
+        else{
+            s_Swerve.drive(
             new Translation2d(translationVal, strafeVal)/*.times(RevSwerveConfig.maxSpeed)*/, 
             rotationVal * RevSwerveConfig.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
+        }
     }
 }

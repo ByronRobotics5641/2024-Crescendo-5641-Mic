@@ -63,7 +63,7 @@ public class RobotContainer {
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final LightsSubsystem lightsSubsystem = new LightsSubsystem();
     
-
+    private final Command shootNote = Commands.run(() -> shooterSubsystem.shooterDriver(driver.getRawAxis(3)), shooterSubsystem);
     /*DigitalInput shooterLimit = new DigitalInput(0);
     Trigger ShooterLimit = new Trigger(shooterLimit::get);
     DigitalInput intakeLimit = new DigitalInput(1);
@@ -75,7 +75,7 @@ public class RobotContainer {
 
 
     private final Command m_loadShooter = Commands.runOnce(shooterSubsystem::loadShooter, shooterSubsystem);
-    private final Command m_launchShooter = Commands.runOnce(shooterSubsystem::launchShooter, shooterSubsystem);
+    //private final Command m_launchShooter = Commands.runOnce(shooterSubsystem::launchShooter, shooterSubsystem);
     private final Command m_stopShooter = Commands.runOnce(shooterSubsystem::stopShooter, shooterSubsystem);
     private final Command m_shooterAmp = Commands.runOnce(shooterSubsystem::shooterAmp, shooterSubsystem);
     private final Command m_startIndex = Commands.runOnce(indexSubsystem::startIndex, indexSubsystem);
@@ -116,8 +116,6 @@ public class RobotContainer {
 
     private final Command m_dirveAxis = Commands.run(() -> intakeSubsystem.driveAngle(m_manipController.getLeftY(), manip.getRawButton(9)), intakeSubsystem);
 
-
-
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
 
@@ -145,9 +143,12 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(4)*RevSwerveConfig.maxSpeed, //rotation
                 () -> false,
                 () -> driver.getRawButton(6),
-                () -> true
+                () -> true,
+                () -> manip.getRawButton(6)
             )
         );
+
+        shooterSubsystem.setDefaultCommand(shootNote);
 
         intakeSubsystem.setDefaultCommand(m_dirveAxis);
         lightsSubsystem.setDefaultCommand(m_setAllianceColor);
@@ -185,7 +186,7 @@ public class RobotContainer {
 
         //shooter
         m_manipController.rightTrigger().whileTrue(m_loadShooter).onFalse(m_stopShooter);
-        m_manipController.rightBumper().whileTrue(m_launchShooter).onFalse(m_stopShooter);
+        //m_manipController.rightBumper().whileTrue(m_launchShooter).onFalse(m_stopShooter);        
         m_manipController.leftTrigger().whileTrue(m_reverseIndex).onFalse(m_stopIndex);
         m_manipController.leftBumper().whileTrue(m_startIndex).onFalse(m_stopIndex);
         m_manipController.y().onTrue(m_shooterAmp).onFalse(m_stopShooter);

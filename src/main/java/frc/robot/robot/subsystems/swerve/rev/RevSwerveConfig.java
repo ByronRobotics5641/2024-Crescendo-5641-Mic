@@ -105,7 +105,7 @@ public class RevSwerveConfig
     public static final double lowSpeed = 0.2;
     public static final double highSpeed = 0.7;
     /** Radians per Second */
-    public static final double maxAngularVelocity = 9; 
+    public static double maxAngularVelocity = 9; 
 
  
  

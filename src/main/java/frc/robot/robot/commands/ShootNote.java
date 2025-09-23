@@ -4,6 +4,8 @@
 
 package frc.robot.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.robot.subsystems.ShooterSubsystem;
 
@@ -19,6 +21,15 @@ public class ShootNote extends Command {
     addRequirements(shooter);
 
     this.speed = speed;  
+  }
+
+  public ShootNote(ShooterSubsystem shooter, DoubleSupplier speedsSupplier) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.shooter = shooter;
+    addRequirements(shooter);
+
+    this.speed = speedsSupplier.getAsDouble();
+    
   }
 
   // Called when the command is initially scheduled.
