@@ -58,11 +58,11 @@ public class TeleopSwerve extends Command {
             boolean speedToggleVal = speedToggle.getAsBoolean();
         if (speedToggleVal) {
             RevSwerveConfig.maxSpeed = 0.12;
-            RevSwerveConfig.maxAngularVelocity = 1.5;
+            RevSwerveConfig.maxAngularVelocity = 4;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         } else {
             RevSwerveConfig.maxSpeed = .13;
-            RevSwerveConfig.maxAngularVelocity = 1.5;
+            RevSwerveConfig.maxAngularVelocity = 4;
             System.out.println("Current speed: " + RevSwerveConfig.maxSpeed);
         }
         } 

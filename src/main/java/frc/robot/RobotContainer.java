@@ -50,7 +50,10 @@ public class RobotContainer {
     private final Joystick manip = new Joystick(1);
 
     private final CommandXboxController m_manipController =
-        new CommandXboxController(OperatorConstants.kManipControllerPort);
+        new CommandXboxController(1);
+
+    private final CommandXboxController m_driveController = 
+        new CommandXboxController(0);
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, 4); //Y zeros the gyro
@@ -75,7 +78,7 @@ public class RobotContainer {
 
 
     private final Command m_loadShooter = Commands.runOnce(shooterSubsystem::loadShooter, shooterSubsystem);
-    //private final Command m_launchShooter = Commands.runOnce(shooterSubsystem::launchShooter, shooterSubsystem);
+    private final Command m_launchShooter = Commands.runOnce(shooterSubsystem::launchShooter, shooterSubsystem);
     private final Command m_stopShooter = Commands.runOnce(shooterSubsystem::stopShooter, shooterSubsystem);
     private final Command m_shooterAmp = Commands.runOnce(shooterSubsystem::shooterAmp, shooterSubsystem);
     private final Command m_startIndex = Commands.runOnce(indexSubsystem::startIndex, indexSubsystem);
@@ -148,7 +151,6 @@ public class RobotContainer {
             )
         );
 
-        shooterSubsystem.setDefaultCommand(shootNote);
 
         intakeSubsystem.setDefaultCommand(m_dirveAxis);
         lightsSubsystem.setDefaultCommand(m_setAllianceColor);
@@ -183,10 +185,12 @@ public class RobotContainer {
         angleDown.whileTrue(m_angleDown);
         angleAmp.whileTrue(m_angleAmp);
         
+        //shooterDrive
+        m_driveController.rightTrigger().whileTrue(shootNote).onFalse(m_stopShooter);
 
         //shooter
         m_manipController.rightTrigger().whileTrue(m_loadShooter).onFalse(m_stopShooter);
-        //m_manipController.rightBumper().whileTrue(m_launchShooter).onFalse(m_stopShooter);        
+        m_manipController.rightBumper().whileTrue(shootNote).onFalse(m_stopShooter);        
         m_manipController.leftTrigger().whileTrue(m_reverseIndex).onFalse(m_stopIndex);
         m_manipController.leftBumper().whileTrue(m_startIndex).onFalse(m_stopIndex);
         m_manipController.y().onTrue(m_shooterAmp).onFalse(m_stopShooter);

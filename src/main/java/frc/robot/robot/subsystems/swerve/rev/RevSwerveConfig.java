@@ -66,8 +66,8 @@ public class RevSwerveConfig
     public static final boolean canCoderInvert = chosenModule.canCoderInvert;
 
     /* Swerve Current Limiting */
-    public static final int angleContinuousCurrentLimit = 20;
-    public static final int anglePeakCurrentLimit = 40;
+    public static final int angleContinuousCurrentLimit = 10;
+    public static final int anglePeakCurrentLimit = 30;
     public static final double anglePeakCurrentDuration = 0.1;
     public static final boolean angleEnableCurrentLimit = true;
 
@@ -82,7 +82,7 @@ public class RevSwerveConfig
     public static final double closedLoopRamp = 0.0;
 
     /* Angle Motor PID Values */
-    public static final double angleKP = 0.05;
+    public static final double angleKP = 0.03;
     public static final double angleKI = 0;
     public static final double angleKD = 0;
     public static final double angleKF = 0;
